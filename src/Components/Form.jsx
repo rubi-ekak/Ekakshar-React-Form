@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./Form.css"
+import "./Form.css";
 import { useRef } from "react";
 import Selectbutton from "./Selectbutton";
 import { useNavigate } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
-
 
 // import emailjs from "@emailjs/browser";
 
@@ -22,17 +21,18 @@ const initialValues = {
   product_name: "",
   height: "",
   breadth: "",
-  length: "",
+  Length: "",
   material: "",
   color: "",
   image: "",
 };
 
 const Form = () => {
-  const [SelectedValue, setSelectedValue] = useState();
+  const [SelectedValue, setSelectedValue] = useState([]);
   const [formData, updateFormData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setisSubmit] = useState(false);
+  console.log(SelectedValue)
   // const [selectButtonValue,setSelectButtonValue]=useState()
   const navigate = useNavigate();
   //  for using formik form state handle
@@ -64,6 +64,13 @@ const Form = () => {
   //     );
   //   },
   // });
+console.log(SelectedValue)
+  
+
+
+
+
+
   const handleChange = (e) => {
     // this is use  for store form data using spread opetrator with target the event
     updateFormData({ ...formData, [e.target.name]: e.target.value });
@@ -77,9 +84,6 @@ const Form = () => {
     // boolean value for check form validation error have or not
     setisSubmit(true);
     // e.target.reset()
-     
-   
-
   };
 
   const validate = (values) => {
@@ -117,8 +121,8 @@ const Form = () => {
     if (!values.product_name) {
       errors.product_name = "product name required";
     }
-    if (!values.length) {
-      errors.length = "length   is required";
+    if (!values.Length) {
+      errors.Length = "length   is required";
     }
     if (!values.breadth) {
       errors.breadth = "breadth is required";
@@ -132,8 +136,8 @@ const Form = () => {
     if (values.material === "Select Material") {
       errors.material = "material  is required";
     }
-    if (values.colour === "Select colour") {
-      errors.colour = "material colour  is required";
+    if (values.color === "Select colour") {
+      errors.color = "material colour  is required";
     }
     if (values.image === "") {
       errors.image = "material image  is required";
@@ -141,17 +145,15 @@ const Form = () => {
     return errors;
   };
   // console.log(Object.keys);
-  // on base condition form submitted 
+  // on base condition form submitted
   useEffect(() => {
-  console.log(Object.keys(formErrors))
-  // console.log(formErrors.length)
+    console.log(Object.keys(formErrors));
+    // console.log(formErrors.length)
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formData);
-        navigate('/success')
-        updateFormData(" ")
-      
+      navigate("/success");
+     
     }
-   
   }, [formErrors]);
   // if (formData.name.length < 2 && formData.name!== "") {
   //   setFormErrors(!formErrors);
@@ -162,74 +164,74 @@ const Form = () => {
   // else {
   //   console.log("this is correct");
   // }
-    console.log(SelectedValue)
-
-
-  if(SelectedValue.length==0){
-    result=(<></>)
-  }
-  else {
-    SelectedValue.map((ele, key) => {
-     
-
-      if (ele.value === "Other") {
-        result = (
-          <div>
-            <label for="inputName" class="form-label">
-              For other
-            </label>
-            <div className="form-floating">
-              <textarea
-                class="form-control"
-                name="other"
-                placeholder="Leave a comment here"
-                id="floatingTextarea2"
-                style={{ height: "100px" }}
-                value={formData.other}
-                onChange={handleChange}
-                // value={values.other}
-                // onChange={handleChange}
-              ></textarea>
-              {/* <label for="floatingTextarea2">
+  console.log(SelectedValue);
+    if (SelectedValue.length === 0) {
+      result=null;
+    } else {
+      SelectedValue &&
+        SelectedValue.map((ele, key) => {
+          if (ele.value === "Other") {
+            result = (
+              <div key={ele.id}>
+                <label for="inputName" class="form-label">
+                  For other
+                </label>
+                <div className="form-floating">
+                  <textarea
+                    class="form-control"
+                    name="other"
+                    placeholder="Leave a comment here"
+                    id="floatingTextarea2"
+                    style={{ height: "100px" }}
+                    value={formData.other}
+                    onChange={handleChange}
+                    // value={values.other}
+                    // onChange={handleChange}
+                  ></textarea>
+                  {/* <label for="floatingTextarea2">
                 Write descripsion for other services
               </label> */}
 
-              {/* <div class="col-12 submit-button">
+                  {/* <div class="col-12 submit-button">
                 <button type="submit" class="btn btn-primary">
                   Submit
                 </button>
               </div> */}
 
-              <p className="form-errors error-font-size">{formErrors.other}</p>
-            </div>
-          </div>
-        );
-      } else {
-        result = (
-          <div className="row mt-4">
-            <div class="col-md-6">
-              <label for="inputName" class="form-label">
-                Product Name
-              </label>
-              <input
-                type="text"
-                name="product_name"
-                class="form-control"
-                id="inputName"
-                value={formData.product_name}
-                onChange={handleChange}
-                // value={values.product_name}
-                // onChange={handleChange}
-              />
-              <p className="form-error error-font-size">{formErrors.product_name}</p>
-            </div>
-            <div className="row mt-4">
-              <div className="col-md-6 justify-content-between ">
-                <label for="inputName" class="form-label">
-                  Dimension
-                </label>
-                <div className="row gap-4 ">
-                  {/* <div className="col-6">
+                  <p className="form-errors error-font-size">
+                    {formErrors.other}
+                  </p>
+                </div>
+              </div>
+            );
+          } else {
+            result = (
+              <div className="row mt-4" key={ele.id}>
+                <div class="col-md-6">
+                  <label for="inputName" class="form-label">
+                    Product Name
+                  </label>
+                  <input
+                    type="text"
+                    name="product_name"
+                    class="form-control"
+                    id="inputName"
+                    value={formData.product_name}
+                    onChange={handleChange}
+                    // value={values.product_name}
+                    // onChange={handleChange}
+                  />
+                  <p className="form-error error-font-size">
+                    {formErrors.product_name}
+                  </p>
+                </div>
+                <div className="row mt-4">
+                  <div className="col-md-6 justify-content-between ">
+                    <label for="inputName" class="form-label">
+                      Dimension
+                    </label>
+                    <div className="row gap-4 ">
+                      {/* <div className="col-6">
                     <div class="input-group ">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -250,138 +252,148 @@ const Form = () => {
                       </div>
                     </div>
                   </div> */}
-                  <div className="col-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <label>length</label>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        name="length"
-                        class="form-control"
-                        aria-label="Amount (to the nearest dollar)"
-                        placeholder="length"
-                        value={formData.length}
-                        onChange={handleChange}
-                        // value={values.breadth}
-                        // onChange={handleChange}
-                      />
+                      <div className="col-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <label>length</label>
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            name="Length"
+                            class="form-control"
+                            aria-label="Amount (to the nearest dollar)"
+                            placeholder="Length"
+                            value={formData.Length}
+                            onChange={handleChange}
+                            // value={values.breadth}
+                            // onChange={handleChange}
+                          />
 
-                      <div class="input-group-append">
-                        <span class="input-group-text">cm</span>
+                          <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                          </div>
+                          <p className="form-error error-font-size">
+                            {formErrors.Length}
+                          </p>
+                        </div>
                       </div>
-                      <p className="form-error error-font-size">{formErrors.length}</p>
+
+                      <div className="col-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <label>Breadth</label>
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            name="breadth"
+                            class="form-control"
+                            aria-label="Amount (to the nearest dollar)"
+                            placeholder="Breadth"
+                            value={formData.breadth}
+                            onChange={handleChange}
+                            // value={values.breadth}
+                            // onChange={handleChange}
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                          </div>
+                          <p className="form-error error-font-size">
+                            {formErrors.breadth}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <label>height</label>
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            name="height"
+                            class="form-control"
+                            aria-label="Amount (to the nearest dollar)"
+                            placeholder="height"
+                            value={formData.height}
+                            onChange={handleChange}
+                            // value={values.height}
+                            // onChange={handleChange}
+                          />
+
+                          <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                          </div>
+                          <p className="form-error error-font-size">
+                            {formErrors.height}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="col-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <label>Breadth</label>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        name="breadth"
-                        class="form-control"
-                        aria-label="Amount (to the nearest dollar)"
-                        placeholder="Breadth"
-                        value={formData.breadth}
+                  <div class="col-md-3">
+                    <label for="inputName" class="form-label">
+                      Material
+                    </label>
+                    <div>
+                      <select
+                        class="form-select"
+                        name="material"
+                        aria-label="Disabled select example"
+                        value={formData.material}
                         onChange={handleChange}
-                        // value={values.breadth}
+                        // value={values.material}
                         // onChange={handleChange}
-                      />
-                      <div class="input-group-append">
-                        <span class="input-group-text">cm</span>
-                      </div>
-                      <p className="form-error error-font-size">{formErrors.breadth}</p>
+                      >
+                        <option selected>Select Material</option>
+                        <option value="ABS">ABS</option>
+                        <option value="PETG">PETG</option>
+                        <option value="TPU">TPU</option>
+                        <option value="PLA">PLA</option>
+                      </select>
                     </div>
+                    <p className="form-error error-font-size">
+                      {formErrors.material}
+                    </p>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="inputName" class="form-label">
+                      Colour
+                    </label>
+                    <div>
+                      <select
+                        class="form-select"
+                        name="color"
+                        aria-label="Disabled select example"
+                        value={formData.color}
+                        onChange={handleChange}
+                        // value={values.colour}
+                        // onChange={handleChange}
+                      >
+                        <option selected>Select colour</option>
+                        <option value="black">black</option>
+                        <option value="white">white</option>
+                        <option value="Red">Red</option>
+
+                        <option value="Grey">Grey</option>
+                        <option value="Blue">Blue</option>
+
+                        <option value="Orange">Orange</option>
+                        <option value="Green">Green</option>
+                        <option value="Brown">Brown</option>
+                      </select>
+                    </div>
+                    <p className="form-error error-font-size">
+                      {formErrors.color}
+                    </p>
                   </div>
 
-                  <div className="col-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <label>height</label>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        name="height"
-                        class="form-control"
-                        aria-label="Amount (to the nearest dollar)"
-                        placeholder="height"
-                        value={formData.height}
-                        onChange={handleChange}
-                        // value={values.height}
-                        // onChange={handleChange}
-                      />
-
-                      <div class="input-group-append">
-                        <span class="input-group-text">cm</span>
-                      </div>
-                      <p className="form-error error-font-size">{formErrors.height}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <label for="inputName" class="form-label">
-                  Material
-                </label>
-                <div>
-                  <select
-                    class="form-select"
-                    name="material"
-                    aria-label="Disabled select example"
-                    value={formData.material}
-                    onChange={handleChange}
-                    // value={values.material}
-                    // onChange={handleChange}
-                  >
-                    <option selected>Select Material</option>
-                    <option value="ABS">ABS</option>
-                    <option value="PETG">PETG</option>
-                    <option value="TPU">TPU</option>
-                    <option value="PLA">PLA</option>
-                  </select>
-                </div>
-                <p className="form-error error-font-size">{formErrors.material}</p>
-              </div>
-              <div class="col-md-3">
-                <label for="inputName" class="form-label">
-                  Colour
-                </label>
-                <div>
-                  <select
-                    class="form-select"
-                    name="colour"
-                    aria-label="Disabled select example"
-                    value={formData.colour}
-                    onChange={handleChange}
-                    // value={values.colour}
-                    // onChange={handleChange}
-                  >
-                    <option selected>Select colour</option>
-                    <option value="black">black</option>
-                    <option value="white">white</option>
-                    <option value="Red">Red</option>
-
-                    <option value="Grey">Grey</option>
-                    <option value="Blue">Blue</option>
-
-                    <option value="Orange">Orange</option>
-                    <option value="Green">Green</option>
-                    <option value="Brown">Brown</option>
-                  </select>
-                </div>
-                <p className="form-error error-font-size">{formErrors.colour}</p>
-              </div>
-
-              {/* <div className="col-md-6 justify-content-between ">
+                  {/* <div className="col-md-6 justify-content-between ">
               <label for="inputName" class="form-label">
                 Dimension
               </label>
@@ -442,166 +454,170 @@ const Form = () => {
                 </div>
               </div>
             </div> */}
-            </div>
-            {/* <div class="col-12 submit-button">
+                </div>
+                {/* <div class="col-12 submit-button">
               <button type="submit" class="btn btn-primary">
                 Submit
               </button>
             </div> */}
+              </div>
+            );
+            // console.log("many option");
+          }
+
+          // if (SelectedValue === " ") {
+          //   console.log("has cleared");
+          // } else {
+          //   console.log("clear");
+          // }
+        });
+    
+    // const handleSubmit = () => {
+    //   if(!errors){
+    //     console.log("form has been submitted");
+    //   }
+
+    };
+
+    return (
+      <div className="d-flex align-items-center justify-content-center mt-4 ">
+        <div
+          className="bg-light form-padding rounded-2 form-shadow"
+          style={{ width: "75%" }}
+        >
+          <div>
+            <h4 className="text-center">Contact form</h4>
           </div>
-        );
-        // console.log("many option");
-      }
+          <form class="row g-3" onSubmit={handlesubmit}>
+            <div class="col-md-6">
+              <label for="inputName" class="form-label">
+                Full Name
+              </label>
+              <input
+                type="text"
+                autoComplete="off"
+                name="name"
+                class="form-control"
+                id="inputPassword4"
+                value={formData.name}
+                onChange={handleChange}
+                // value={values.name}
+                // onChange={handleChange}
+                // onBlur={handleBlur}
+              />
 
-      // if (SelectedValue === " ") {
-      //   console.log("has cleared");
-      // } else {
-      //   console.log("clear");
-      // }
-    });
-  }
-  // const handleSubmit = () => {
-  //   if(!errors){
-  //     console.log("form has been submitted");
-  //   }
-
-  // };
-
-  return (
-    <div className="d-flex align-items-center justify-content-center mt-4 ">
-      <div
-        className="bg-light form-padding rounded-2 form-shadow"
-        style={{ width: "75%" }}
-      >
-        <div>
-          <h4 className="text-center">Contact form</h4>
-        </div>
-        <form class="row g-3" onSubmit={handlesubmit}>
-          <div class="col-md-6">
-            <label for="inputName" class="form-label">
-              Full Name
-            </label>
-            <input
-              type="text"
-              autoComplete="off"
-              name="name"
-              class="form-control"
-              id="inputPassword4"
-              value={formData.name}
-              onChange={handleChange}
-              // value={values.name}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-            />
-
-            {/* {errors.name && touched.name ? (
+              {/* {errors.name && touched.name ? (
               <p className="form-error">{errors.name}</p>
             ) : null} */}
-            {/* {formErrors ? (
+              {/* {formErrors ? (
               <p className="form-error">Please enter more than one character</p>
             ) : null} */}
-            <p className="form-error error-font-size">{formErrors.name}</p>
-          </div>
-          <div class="col-md-6">
-            <label for="inputEmail4" class="form-label">
-              Email
-            </label>
-            <input
-              type="text"
-              name="email"
-              class="form-control"
-              id="inputEmail4"
-              value={formData.email}
-              onChange={handleChange}
-              // value={values.email}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-            />
-            <p className="form-error error-font-size">{formErrors.email}</p>
-            {/* {errors.email && touched.email ? (
+              <p className="form-error error-font-size">{formErrors.name}</p>
+            </div>
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">
+                Email
+              </label>
+              <input
+                type="text"
+                name="email"
+                class="form-control"
+                id="inputEmail4"
+                value={formData.email}
+                onChange={handleChange}
+                // value={values.email}
+                // onChange={handleChange}
+                // onBlur={handleBlur}
+              />
+              <p className="form-error error-font-size">{formErrors.email}</p>
+              {/* {errors.email && touched.email ? (
               <p className="form-error">{errors.email}</p>
             ) : null} */}
-          </div>
+            </div>
 
-          <div class="col-12">
-            <label for="inputAddress" class="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              name="address"
-              class="form-control"
-              id="inputAddress"
-              placeholder="1234 Main St"
-              value={formData.address}
-              onChange={handleChange}
-              // value={values.address}
-              // onChange={handleChange}
-            />
-            <p className="form-error error-font-size">{formErrors.address}</p>
-          </div>
-          <div class="col-12">
-            <label for="inputAddress2" class="form-label">
-              Address 2
-            </label>
-            <input
-              type="text"
-              name="address2"
-              class="form-control"
-              id="inputAddress2"
-              placeholder="Apartment, studio, or floor"
-              value={formData.address2}
-              onChange={handleChange}
-              // value={values.address2}
-              // onChange={handleChange}
-            />
-            <p className="form-error error-font-size">{formErrors.address2}</p>
-          </div>
-          <div class="col-md-6">
-            <label for="inputCity" class="form-label">
-              City
-            </label>
-            <input
-              type="text"
-              name="city"
-              class="form-control"
-              id="inputCity"
-              value={formData.city}
-              onChange={handleChange}
-              // value={values.city}
-              // onChange={handleChange}
-            />
-            <p className="form-error error-font-size">{formErrors.city}</p>
-          </div>
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">
+                Address
+              </label>
+              <input
+                type="text"
+                name="address"
+                class="form-control"
+                id="inputAddress"
+                placeholder="1234 Main St"
+                value={formData.address}
+                onChange={handleChange}
+                // value={values.address}
+                // onChange={handleChange}
+              />
+              <p className="form-error error-font-size">{formErrors.address}</p>
+            </div>
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label">
+                Address 2
+              </label>
+              <input
+                type="text"
+                name="address2"
+                class="form-control"
+                id="inputAddress2"
+                placeholder="Apartment, studio, or floor"
+                value={formData.address2}
+                onChange={handleChange}
+                // value={values.address2}
+                // onChange={handleChange}
+              />
+              <p className="form-error error-font-size">
+                {formErrors.address2}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">
+                City
+              </label>
+              <input
+                type="text"
+                name="city"
+                class="form-control"
+                id="inputCity"
+                value={formData.city}
+                onChange={handleChange}
+                // value={values.city}
+                // onChange={handleChange}
+              />
+              <p className="form-error error-font-size">{formErrors.city}</p>
+            </div>
 
-          <div class="col-md-6">
-            <label for="inputZip" class="form-label">
-              Contact Number
-            </label>
-            <input
-              type="text"
-              name="phone_number"
-              class="form-control"
-              id="inputZip"
-              value={formData.phone_number}
-              onChange={handleChange}
-              // value={values.phone_number}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-            />
-            <p className="form-error error-font-size">{formErrors.phone_number}</p>
-            {/* {errors.phone_number && touched.phone_number ? (
+            <div class="col-md-6">
+              <label for="inputZip" class="form-label">
+                Contact Number
+              </label>
+              <input
+                type="text"
+                name="phone_number"
+                class="form-control"
+                id="inputZip"
+                value={formData.phone_number}
+                onChange={handleChange}
+                // value={values.phone_number}
+                // onChange={handleChange}
+                // onBlur={handleBlur}
+              />
+              <p className="form-error error-font-size">
+                {formErrors.phone_number}
+              </p>
+              {/* {errors.phone_number && touched.phone_number ? (
               <p className="form-error">{errors.phone_number}</p>
             ) : null} */}
-          </div>
-          <div class="col-md-6">
-            <label for="inputState" class="form-label">
-              Services
-            </label>
-            <Selectbutton setSelectedValue={setSelectedValue} />
-          </div>
-          {result}
-          {/* <div className="row">
+            </div>
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">
+                Services
+              </label>
+              <Selectbutton   setSelectedValue={setSelectedValue}/>
+            </div>
+            {result}
+            {/* <div className="row">
             <div class="col-md-6">
               <label for="inputName" class="form-label">
                 Product Name
@@ -656,7 +672,7 @@ const Form = () => {
               </div>
             </div>
           </div> */}
-          {/* <div className="form-floating">
+            {/* <div className="form-floating">
             <textarea
               class="form-control"
               placeholder="Leave a comment here"
@@ -668,52 +684,52 @@ const Form = () => {
             </label>
           </div> */}
 
-          <div class="mt-4">
-            <label for="inputState" class="form-label">
-              Prototype Image
-            </label>
-            <input
-              type="file"
-              name="image"
-              class="form-control"
-              aria-label="file example"
-              placeholder="for prototype"
-              value={formData.image}
-              onChange={handleChange}
-            />
-
-            <div class="invalid-feedback">
-              Example invalid form file feedback
-            </div>
-            <p className="form-errors error-font-size">{formErrors.image}</p>
-          </div>
-          <div>
-            <label for="basic-url" class="form-label">
-              Referece URL for Product Image
-            </label>
-            <div class="input-group">
-              <span class="input-group-text" id="basic-addon3">
-                https://example.com/
-              </span>
+            <div class="mt-4">
+              <label for="inputState" class="form-label">
+                Prototype Image
+              </label>
               <input
-                type="text"
+                type="file"
+                name="image"
                 class="form-control"
-                id="basic-url"
-                aria-describedby="basic-addon3"
+                aria-label="file example"
+                placeholder="for prototype"
+                value={formData.image}
+                onChange={handleChange}
               />
-              
+
+              <div class="invalid-feedback">
+                Example invalid form file feedback
+              </div>
+              <p className="form-errors error-font-size">{formErrors.image}</p>
             </div>
-            {/* <p className="form-error">{formErrors.phone_number}</p> */}
-          </div>
-          <div class="col-12 submit-button ">
-            <button type="submit" class="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </form>
+            <div>
+              <label for="basic-url" class="form-label">
+                Referece URL for Product Image
+              </label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon3">
+                  https://example.com/
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="basic-url"
+                  aria-describedby="basic-addon3"
+                />
+              </div>
+              {/* <p className="form-error">{formErrors.phone_number}</p> */}
+            </div>
+            <div class="col-12 submit-button ">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  
 };
 
 export default Form;

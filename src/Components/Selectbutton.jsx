@@ -11,12 +11,16 @@ const options = [
 
 const Selectbutton = ({setSelectedValue}) => {
   const [selected, setSelected] = useState([]);
-  setSelectedValue(selected)
   // useEffect(()=>{
-  //   setSelectedValue(selected)
-  // },[])
- 
-//  console.log(selected)
+   
+  //   ;
+  // },[setSelected])
+const  handleSelect=(e)=>{
+ setSelected(e)
+
+}
+setSelectedValue(selected)
+ console.log(selected)
 
   return (
     <div>
@@ -26,7 +30,7 @@ const Selectbutton = ({setSelectedValue}) => {
         options={options}
         value={selected}
         selected={false}
-        onChange={setSelected}
+        onChange={handleSelect}
         labelledBy="Select"
         // className="position-fixed flex-1"
       />
