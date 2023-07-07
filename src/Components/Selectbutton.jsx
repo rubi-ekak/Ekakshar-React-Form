@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 const options = [
+  
   { label: "3D design", value: "3D design" },
   { label: "Product design", value: "Product design" },
   { label: "3D Printing", value: "3D Printing" },
@@ -22,6 +23,10 @@ const  handleSelect=(e)=>{
 setSelectedValue(selected)
  console.log(selected)
 
+//  selected.map((e)=>{
+//     console.log(e)
+//  })
+
   return (
     <div>
       {/* <h1>Select Fruits</h1> */}
@@ -32,6 +37,8 @@ setSelectedValue(selected)
         selected={false}
         onChange={handleSelect}
         labelledBy="Select"
+      
+      hasSelectAll={false }
         // className="position-fixed flex-1"
       />
     </div>

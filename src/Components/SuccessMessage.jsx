@@ -18,8 +18,10 @@ const handleClick=()=>{
             <div class="col-md-5">
                 <div class="border border-3 border-success"></div>
                 <div class="card  bg-white shadow p-5">
-                    <div class="mb-4 text-center">
-                    <Icon icon="bx:check" className='text-success' style={{height:"75",width:"75"}}/>
+                    <div class="mb-4 text-center wrapper">
+                    {/* <Icon icon="mingcute:check-fill"  className='text-success animated-check'/> */}
+                    
+                    <Icon icon="bx:check" className='text-success animated-check' />
                         {/* <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75"
                             fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
