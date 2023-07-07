@@ -6,7 +6,7 @@ import Selectbutton from "./Selectbutton";
 import { useNavigate } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 
 let result;
 
