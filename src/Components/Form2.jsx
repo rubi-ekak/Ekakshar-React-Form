@@ -149,24 +149,24 @@ const Form2 = () => {
     // console.log(formErrors.length)
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formData);
-      // emailjs.sendForm(
-      //   "service_6kj0ayi",
-      //   // "template_v8ez0gu",
-      //   // for second template
-      //   "template_cx0gmth",
-      //   form.current,
-      //   "UvFS_1Jfn87g68pEB"
-      // )
-      // .then(
-      //   (result) => {
+      emailjs.sendForm(
+        "service_6kj0ayi",
+        // "template_v8ez0gu",
+        // for second template
+        "template_cx0gmth",
+        form.current,
+        "UvFS_1Jfn87g68pEB"
+      )
+      .then(
+        (result) => {
 
-      //     console.log(result.text);
-      //   },
-      //   (error) => {
-      //     console.log(error.text);
-      //   }
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
 
-      // )
+      )
       console.log("form submitted");
       optionresult=0
       navigate("/success");
