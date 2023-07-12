@@ -32,6 +32,7 @@ setSelectedValue(selected)
       {/* <h1>Select Fruits</h1> */}
       {/* <pre>{JSON.stringify(selected)}</pre> */}
       <MultiSelect
+      
         options={options}
         value={selected}
         selected={false}
