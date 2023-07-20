@@ -42,7 +42,7 @@ const Selectbutton = ({ setSelectedValue }) => {
   return (
     <div>
       {/* <h1>Select Fruits</h1> */}
-      <pre>{JSON.stringify(selected)}</pre>
+      {/* <pre>{JSON.stringify(selected)}</pre> */}
      
       <MultiSelect
       name={selected}
