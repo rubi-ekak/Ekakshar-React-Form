@@ -1,5 +1,5 @@
 .contact-form{
-    background: #fff;
+    background-color: black;
     margin-top: 10%;
     margin-bottom: 5%;
     width: 70%;
@@ -52,7 +52,7 @@
     padding: 4rem;
 }
 .submit-button{
-    margin-top: 8rem!important;
+    margin-top: 3rem!important;
 }
 
 .error-font-size{
@@ -60,4 +60,14 @@
 }
 .form-shadow{
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;;
+}
+.bg-form-color{
+    background-color: #fbe1bc;
+}
+.form-background{
+    background-color: #AEDBED;
+}
+.padding-vertically{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }

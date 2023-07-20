@@ -18,7 +18,7 @@ let result;
 const initialValues = {
   name: "",
   email: "",
-  phone_number:"",
+  // phone_number:"",
   address: "",
   address2: "",
   city: "",
@@ -33,16 +33,17 @@ const initialValues = {
   color: "",
   image: "",
 };
- const Arr=[];
+ 
 const Form2 = () => {
   const [SelectedValue, setSelectedValue] = useState([]);
   const [formData, updateFormData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setisSubmit] = useState(false);
   const [otherService, setOtherService] = useState(false);
-  const [inputphone, setinputphone]=useState()
+  const [inputphone, setinputphone]=useState('')
+  const [services,setService]=useState(false)
   const form = useRef();
-
+console.log(inputphone)
   console.log(SelectedValue);
   // const [selectButtonValue,setSelectButtonValue]=useState()
   const navigate = useNavigate();
@@ -51,8 +52,8 @@ const Form2 = () => {
 
   const handleChange = (e) => {
     // this is use  for store form data using spread opetrator with target the event
-    updateFormData({ ...formData, [e.target.name]: e.target.value });
-    formData.phone_number=inputphone;
+    updateFormData({ ...formData, [e.target.name]: e.target.value ,inputphone});
+    // formData.phone_number=inputphone;
 
   };
 
@@ -71,6 +72,12 @@ const Form2 = () => {
     // e.target.reset()
   };
 
+
+
+  const current = new Date();
+  console.log("current date showing",current)
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+  console.log(date)
 
 
 
@@ -99,17 +106,18 @@ const Form2 = () => {
     if(!values.pincode){
       errors.pincode = "pincode  is required";
     }
-    if (!values.phone_number) {
-      errors.phone_number = "user phone number  is required";
-    } else if (
-      values.phone_number.length > 10 ||
-      values.phone_number.length < 10
-    ) {
-      errors.phone_number = "phone number should have 10 digit";
-    }
-    else if(!pattern.test(values.phone_number)){
-           errors.phone_number="phone number should start with 6,7,8,9 digits" 
-    }
+    if (values.inputphone==="") {
+      errors.inputphone = "user phone number  is required";
+    } 
+    // else if (
+    //   values.phone_number.length > 10 ||
+    //   values.phone_number.length < 10
+    // ) {
+    //   errors.phone_number = "phone number should have 10 digit";
+    // }
+    // else if(!pattern.test(values.phone_number)){
+    //        errors.phone_number="phone number should start with 6,7,8,9 digits" 
+    // }
     if (!values.city) {
       errors.city = "city name   is required";
     }
@@ -167,10 +175,21 @@ const Form2 = () => {
         }
 
       )
+      // emailjs.setSubject("Date "+date);
       console.log("form submitted");
       optionresult=0
       navigate("/success");
-    } else {
+    }else if(Object.keys(formErrors).includes(
+      "product_name",
+      "height",
+      "breadth",
+      "Length",
+      "Other"
+    )){
+      setService(true)
+    }
+    
+    else {
       if (
         formData.other !== "" &&
         Object.keys(formErrors).includes(
@@ -203,7 +222,8 @@ const Form2 = () => {
         
 
         navigate("/success");
-      } else if (
+      } 
+      else if (
         Object.keys(formErrors).includes("other") &&
         formData.product_name !== "" &&
         formData.height !== "" &&
@@ -238,7 +258,7 @@ const Form2 = () => {
   }, [formErrors]);
 
   console.log(formData.other);
-  console.log(SelectedValue);
+  console.log("sele",SelectedValue);
   console.log(otherService);
 
   if (SelectedValue.length === 0) {
@@ -246,6 +266,7 @@ const Form2 = () => {
   } else {
     SelectedValue &&
       SelectedValue.map((ele, key) => {
+        console.log(ele)
         if (ele.value === "Other") {
           console.log('Form Data 2nd Step',formData)
           result = (
@@ -448,13 +469,13 @@ const Form2 = () => {
   
 
   return (
-    <div className="d-flex align-items-center justify-content-center mt-4 ">
+    <div className="d-flex align-items-center justify-content-center  form-background padding-vertically">
       <div
-        className="bg-light form-padding rounded-2 form-shadow"
+        className="bg-form-color form-padding rounded-2 form-shadow "
         style={{ width: "75%" }}
       >
         <div>
-          <h4 className="text-center">Contact form</h4>
+          <h4 className="text-center">Ekakshar Contact form</h4>
         </div>
         <form  ref={form} class="row g-3" onSubmit={handlesubmit} >
           <div class="col-md-6">
@@ -577,6 +598,8 @@ const Form2 = () => {
             </label>
 
             <Selectbutton setSelectedValue={setSelectedValue} />
+            <p className="form-error error-font-size">{services?"please select the services":""}</p>
+            
           </div>
           {result}
 

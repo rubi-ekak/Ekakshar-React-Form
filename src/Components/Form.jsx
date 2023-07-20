@@ -144,52 +144,52 @@ const Form = () => {
     return errors;
   };
 
-  const validate2 = (values) => {
-    const errors = {};
-    const regex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (!values.name) {
-      errors.name = "username is required";
-    } else if (values.name.length < 2) {
-      errors.name = "name must have more than one character";
-    }
-    if (!values.email) {
-      errors.email = "email is required";
-    } else if (!regex.test(values.email)) {
-      console.log(regex.test(values.email));
-      errors.email = "enter valid email";
-    }
-    if (!values.address) {
-      errors.address = "user address is required";
-    }
-    if (!values.address2) {
-      errors.address2 = "user address2  is required";
-    }
-    if (!values.phone_number) {
-      errors.phone_number = "user phone number  is required";
-    } else if (
-      values.phone_number.length > 10 ||
-      values.phone_number.length < 10
-    ) {
-      errors.phone_number = "phone number should have 10 digit";
-    }
-    if (!values.city) {
-      errors.city = "city name   is required";
-    }
-    if (!values.other) {
-      errors.other = "other description  is required";
-    }
-    if (values.material === "Select Material") {
-      errors.material = "material  is required";
-    }
-    if (values.color === "Select colour") {
-      errors.color = "material colour  is required";
-    }
-    if (values.image === "") {
-      errors.image = "material image  is required";
-    }
-    return errors;
-  };
+  // const validate2 = (values) => {
+  //   const errors = {};
+  //   const regex =
+  //     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //   if (!values.name) {
+  //     errors.name = "username is required";
+  //   } else if (values.name.length < 2) {
+  //     errors.name = "name must have more than one character";
+  //   }
+  //   if (!values.email) {
+  //     errors.email = "email is required";
+  //   } else if (!regex.test(values.email)) {
+  //     console.log(regex.test(values.email));
+  //     errors.email = "enter valid email";
+  //   }
+  //   if (!values.address) {
+  //     errors.address = "user address is required";
+  //   }
+  //   if (!values.address2) {
+  //     errors.address2 = "user address2  is required";
+  //   }
+  //   if (!values.phone_number) {
+  //     errors.phone_number = "user phone number  is required";
+  //   } else if (
+  //     values.phone_number.length > 10 ||
+  //     values.phone_number.length < 10
+  //   ) {
+  //     errors.phone_number = "phone number should have 10 digit";
+  //   }
+  //   if (!values.city) {
+  //     errors.city = "city name   is required";
+  //   }
+  //   if (!values.other) {
+  //     errors.other = "other description  is required";
+  //   }
+  //   if (values.material === "Select Material") {
+  //     errors.material = "material  is required";
+  //   }
+  //   if (values.color === "Select colour") {
+  //     errors.color = "material colour  is required";
+  //   }
+  //   if (values.image === "") {
+  //     errors.image = "material image  is required";
+  //   }
+  //   return errors;
+  // };
 
   console.log(Object.keys);
   // on base condition form submitted
@@ -200,24 +200,24 @@ const Form = () => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formData);
 
-      // emailjs
-      // .sendForm(
-      //   "service_6kj0ayi",
-      //   // "template_v8ez0gu",
-      //   // for second template
-      //   "template_sq703vw",
-      //   // form.current,
-      //   "UvFS_1Jfn87g68pEB"
-      // )
-      // .then(
-      //   (result) => {
+      emailjs
+      .sendForm(
+        "service_6kj0ayi",
+        // "template_v8ez0gu",
+        // for second template
+        "template_sq703vw",
+        // form.current,
+        "UvFS_1Jfn87g68pEB"
+      )
+      .then(
+        (result) => {
 
-      //     console.log(result.text);
-      //   },
-      //   (error) => {
-      //     console.log(error.text);
-      //   }
-      // );
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
       navigate("/success");
     }
   }, [formErrors]);
